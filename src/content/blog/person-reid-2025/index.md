@@ -18,7 +18,6 @@ Current ReID research divides models into three main approaches:
 | Paradigm | Description | Key Models |
 | :--- | :--- | :--- |
 | **Supervised** | Models trained on datasets with human-labelled identities. | OSNet, TransReID |
-
 | **Self-Supervised** | Models that learn features from images without labels. | DINOv2, Perception Encoder |
 | **Language-Aligned** | Models that connect images with text descriptions. | CLIP, SigLIP2, ClipReID |
 
