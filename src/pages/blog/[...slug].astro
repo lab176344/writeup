@@ -1,0 +1,43 @@
+---
+import { getCollection, type CollectionEntry } from 'astro:content';
+import { Image } from 'astro:assets';
+import Layout from '../../layouts/Layout.astro';
+
+export async function getStaticPaths() {
+	const posts = await getCollection('blog');
+	return posts.map((post: CollectionEntry<'blog'>) => ({
+		params: { slug: post.slug },
+		props: post,
+	}));
+}
+
+type Props = CollectionEntry<'blog'>;
+
+const post = Astro.props;
+const { Content } = await post.render();
+---
+
+<Layout title={post.data.title}>
+	<div class="mb-8 border-b border-tui-border pb-8">
+		<a href="../blog" class="text-tui-dim hover:text-tui-accent mb-4 block">&larr; cd ..</a>
+		<h1 class="text-3xl font-bold text-tui-accent mb-2">{post.data.title}</h1>
+		<div class="flex gap-4 text-sm text-tui-dim font-mono mb-4">
+			<span>Date: {post.data.pubDate.toISOString().split('T')[0]}</span>
+			{post.data.updatedDate && <span>Updated: {post.data.updatedDate.toISOString().split('T')[0]}</span>}
+		</div>
+
+		{post.data.cover && (
+			<div class="mb-6 border border-tui-border p-1">
+				<Image 
+					src={post.data.cover} 
+					alt={post.data.coverAlt || ""} 
+					class="w-full h-auto grayscale hover:grayscale-0 transition-all duration-500"
+				/>
+			</div>
+		)}
+	</div>
+
+	<article class="prose prose-invert prose-p:text-tui-fg prose-headings:text-tui-accent prose-a:text-blue-400 prose-code:text-tui-accent prose-pre:bg-black/30 prose-pre:border prose-pre:border-tui-border max-w-none prose-img:border prose-img:border-tui-border prose-img:p-1">
+		<Content />
+	</article>
+</Layout>

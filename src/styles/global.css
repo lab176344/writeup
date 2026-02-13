@@ -1,0 +1,30 @@
+@import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;700&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  body {
+    @apply bg-tui-bg text-tui-fg font-mono antialiased;
+  }
+  
+  /* Custom Scrollbar */
+  ::-webkit-scrollbar {
+    width: 10px;
+  }
+  ::-webkit-scrollbar-track {
+    @apply bg-tui-bg;
+  }
+  ::-webkit-scrollbar-thumb {
+    @apply bg-tui-border border-2 border-tui-bg rounded-none;
+  }
+  ::-webkit-scrollbar-thumb:hover {
+    @apply bg-tui-accent;
+  }
+
+  /* Selection */
+  ::selection {
+    @apply bg-tui-selection text-white;
+  }
+}

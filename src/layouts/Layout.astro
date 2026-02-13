@@ -1,0 +1,38 @@
+---
+import '../styles/global.css';
+import Navbar from '../components/Navbar.astro';
+
+interface Props {
+	title: string;
+    description?: string;
+}
+
+const { title, description = "Personal Website" } = Astro.props;
+---
+
+<!doctype html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="description" content={description} />
+		<meta name="viewport" content="width=device-width" />
+		<meta name="generator" content={Astro.generator} />
+		<title>{title} | Lakshman Balasubramanian</title>
+	</head>
+	<body class="min-h-screen p-4 md:p-12 max-w-4xl mx-auto flex flex-col relative overflow-x-hidden">
+        
+        
+		<header>
+            <Navbar />
+		</header>
+
+		<main class="flex-grow">
+			<slot />
+		</main>
+
+        <footer class="mt-16 py-4 border-t border-tui-border text-tui-dim text-sm flex justify-between items-center">
+            <span>&copy; {new Date().getFullYear()} Lakshman Balasubramanian</span>
+            <span class="text-tui-dim">Built with Astro</span>
+        </footer>
+	</body>
+</html>

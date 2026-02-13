@@ -1,0 +1,40 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import { getCollection, type CollectionEntry } from 'astro:content';
+
+const posts = (await getCollection('blog')).sort(
+	(a: CollectionEntry<'blog'>, b: CollectionEntry<'blog'>) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf()
+);
+---
+
+<Layout title="Blog">
+	<h1 class="text-2xl font-bold text-tui-accent mb-6">~/blog</h1>
+
+	<div class="border border-tui-border">
+		<!-- Table Header -->
+		<div class="hidden md:grid grid-cols-12 gap-4 p-2 border-b border-tui-border font-bold text-tui-accent bg-tui-selection/20">
+			<div class="col-span-2">Date</div>
+			<div class="col-span-7">Title</div>
+			<div class="col-span-3">Tags</div>
+		</div>
+
+		<!-- List -->
+		<div class="flex flex-col">
+			{posts.map((post: CollectionEntry<'blog'>) => (
+				<a href={`/blog/${post.slug}`} class="group md:grid md:grid-cols-12 gap-4 p-3 border-b border-tui-border/50 hover:bg-tui-selection/30 transition-colors items-center block">
+					<div class="col-span-2 text-sm text-tui-dim group-hover:text-tui-fg font-mono">
+						{post.data.pubDate.toISOString().split('T')[0]}
+					</div>
+					<div class="col-span-7 font-bold text-tui-fg group-hover:text-tui-accent truncate">
+						{post.data.title}
+					</div>
+					<div class="col-span-3 text-xs flex gap-2 overflow-hidden mt-2 md:mt-0">
+						{post.data.tags?.map((tag: string) => (
+							<span class="bg-tui-border/50 px-1 rounded text-tui-dim group-hover:text-tui-fg">#{tag}</span>
+						))}
+					</div>
+				</a>
+			))}
+		</div>
+	</div>
+</Layout>

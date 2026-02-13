@@ -1,0 +1,31 @@
+---
+const { currentPath = '/' } = Astro.props;
+
+const base = import.meta.env.BASE_URL;
+
+const navItems = [
+  { path: base, label: 'Home' },
+  { path: `${base}blog`, label: 'Writing' },
+  { path: `${base}papers`, label: 'Research' },
+];
+---
+
+<nav class="border-b-2 border-tui-border pb-2 mb-8 font-bold">
+  <ul class="flex flex-wrap gap-4 md:gap-8">
+    {navItems.map((item) => (
+      <li>
+        <a 
+          href={item.path} 
+          class:list={[
+            "hover:text-tui-accent transition-colors duration-200",
+            Astro.url.pathname === item.path || (item.path !== '/' && Astro.url.pathname.startsWith(item.path))
+              ? "text-tui-accent underline decoration-2 underline-offset-4" 
+              : "text-tui-dim"
+          ]}
+        >
+          {item.label}
+        </a>
+      </li>
+    ))}
+  </ul>
+</nav>
