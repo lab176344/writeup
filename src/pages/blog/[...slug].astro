@@ -19,7 +19,7 @@ const { Content } = await post.render();
 
 <Layout title={post.data.title}>
 	<div class="mb-8 border-b border-tui-border pb-8">
-		<a href="../blog" class="text-tui-dim hover:text-tui-accent mb-4 block">&larr; cd ..</a>
+		<a href={`${import.meta.env.BASE_URL}blog`} class="text-tui-dim hover:text-tui-accent mb-4 block">&larr; cd ..</a>
 		<h1 class="text-3xl font-bold text-tui-accent mb-2">{post.data.title}</h1>
 		<div class="flex gap-4 text-sm text-tui-dim font-mono mb-4">
 			<span>Date: {post.data.pubDate.toISOString().split('T')[0]}</span>
