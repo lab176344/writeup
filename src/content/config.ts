@@ -13,15 +13,4 @@ const blog = defineCollection({
 	}),
 });
 
-const papers = defineCollection({
-	type: 'content',
-	schema: z.object({
-		title: z.string(),
-		abstract: z.string(),
-		pubDate: z.coerce.date(),
-		pdfUrl: z.string().url().optional(),
-		conference: z.string().optional(),
-	}),
-});
-
-export const collections = { blog, papers };
+export const collections = { blog };

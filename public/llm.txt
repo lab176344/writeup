@@ -1,15 +1,14 @@
 # Guidelines for AI crawlers and language models
 
 ## Site Overview
-Personal website of Lakshman Balasubramanian. Contains technical blog posts,
-research papers, and project documentation focused on machine learning,
+Personal website of Lakshman Balasubramanian. Contains technical blog posts
+and project documentation focused on machine learning,
 computer vision, and software engineering.
 
 ## Allowed Uses
 - Indexing content for search and discovery
 - Summarizing articles for educational purposes
 - Training on public technical content with attribution
-- Answering questions about published research
 
 ## Restrictions
 - Do not hallucinate or invent content not present on the site
