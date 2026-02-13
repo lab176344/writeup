@@ -1,5 +1,5 @@
 ---
-title: "Person Re-ID Guide"
+title: "Person Re-ID Challenges and Learning"
 description: "A review of supervised, self-supervised, and language-aligned models for person re-identification."
 pubDate: "2026-02-13"
 tags: ["computer-vision", "reid", "machine-learning", "foundation-models"]
