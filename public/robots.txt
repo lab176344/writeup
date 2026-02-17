@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://lab176344.github.io/writeup/sitemap.xml
+Sitemap: https://lab176344.github.io/writeup/sitemap-index.xml
