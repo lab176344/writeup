@@ -5,22 +5,73 @@ import Navbar from '../components/Navbar.astro';
 interface Props {
 	title: string;
     description?: string;
+    image?: string;
+    articleDate?: string;
 }
 
-const { title, description = "Personal Website" } = Astro.props;
+const { title, description = "Personal Website of Lakshman Balasubramanian - Physical ML & Software Engineering", image = "/writeup/og-image.png", articleDate } = Astro.props;
+
+const canonicalURL = new URL(Astro.url.pathname, Astro.site);
+const socialImageURL = new URL(image, Astro.url);
+const siteTitle = `${title} | Lakshman Balasubramanian`;
+
+const schema = articleDate
+  ? {
+      "@context": "https://schema.org",
+      "@type": "BlogPosting",
+      "headline": title,
+      "image": [socialImageURL.href],
+      "datePublished": articleDate,
+      "author": {
+        "@type": "Person",
+        "name": "Lakshman Balasubramanian",
+        "url": "https://lab176344.github.io/writeup"
+      }
+    }
+  : {
+      "@context": "https://schema.org",
+      "@type": "WebSite",
+      "name": "Lakshman Balasubramanian",
+      "url": "https://lab176344.github.io/writeup"
+    };
 ---
 
 <!doctype html>
 <html lang="en">
 	<head>
 		<meta charset="UTF-8" />
-		<meta name="description" content={description} />
 		<meta name="viewport" content="width=device-width" />
+		<link rel="icon" type="image/svg+xml" href="/writeup/favicon.svg" />
 		<meta name="generator" content={Astro.generator} />
-		<title>{title} | Lakshman Balasubramanian</title>
+        <link rel="canonical" href={canonicalURL} />
+
+        <!-- Primary Meta Tags -->
+		<title>{siteTitle}</title>
+		<meta name="title" content={siteTitle} />
+		<meta name="description" content={description} />
+
+        <!-- Open Graph / Facebook -->
+        <meta property="og:type" content={articleDate ? "article" : "website"} />
+        <meta property="og:url" content={Astro.url} />
+        <meta property="og:title" content={siteTitle} />
+        <meta property="og:description" content={description} />
+        <meta property="og:image" content={socialImageURL} />
+
+        <!-- Twitter -->
+        <meta property="twitter:card" content="summary_large_image" />
+        <meta property="twitter:url" content={Astro.url} />
+        <meta property="twitter:title" content={siteTitle} />
+        <meta property="twitter:description" content={description} />
+        <meta property="twitter:image" content={socialImageURL} />
+
+        <!-- AI & LLM Hints -->
+        <meta name="robots" content="index, follow" />
+        <link rel="alternate" type="text/markdown" href="/writeup/llm.txt" title="LLM Context" />
+
+        <!-- Schema.org JSON-LD -->
+        <script type="application/ld+json" set:html={JSON.stringify(schema)} />
 	</head>
 	<body class="min-h-screen p-4 md:p-12 max-w-4xl mx-auto flex flex-col relative overflow-x-hidden">
-        
         
 		<header>
             <Navbar />

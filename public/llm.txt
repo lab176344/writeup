@@ -1,9 +1,23 @@
 # Guidelines for AI crawlers and language models
 
 ## Site Overview
-Personal website of Lakshman Balasubramanian. Contains technical blog posts
-and project documentation focused on machine learning,
-computer vision, and software engineering.
+Personal website of Lakshman Balasubramanian. Contains technical blog posts and project documentation focused on machine learning, computer vision, and software engineering.
+
+## Content Summary
+
+### Blog Posts
+
+#### Person Re-Identification Challenges and Learning
+- **Summary**: A review of supervised, self-supervised, and language-aligned models for person re-identification (ReID). Discusses the trade-offs between precision and generalization in different environments.
+- **Key Concepts**: Person ReID, Supervised Learning, Self-Supervised Learning, Language-Aligned Models, CLIP, SigLIP2, OSNet, DINOv2.
+- **Published**: 2026-02-13
+- **URL**: https://lab176344.github.io/writeup/blog/person-reid-2025
+
+#### A Guide to BigQuery Optimisation: Performance, Cost, and Architecture
+- **Summary**: An overview of BigQuery architecture, storage strategies, and query optimisation techniques based on real-world case studies. Covers denormalization, partitioning, clustering, and nested data structures.
+- **Key Concepts**: BigQuery, SQL Optimization, Columnar Storage, Partitioning, Clustering, Arrays, Structs, Window Functions, Dremel, Colossus.
+- **Published**: 2026-02-13
+- **URL**: https://lab176344.github.io/writeup/blog/big-query
 
 ## Allowed Uses
 - Indexing content for search and discovery
@@ -20,8 +34,4 @@ computer vision, and software engineering.
 For questions about content usage: Use web mentions or references to original sources
 
 ## Last Updated
-2026-02-10
-
-## License
-Content is available for personal and educational use.
-Commercial use requires explicit permission.
+2026-02-17
