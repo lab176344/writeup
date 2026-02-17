@@ -19,7 +19,12 @@ const { Content } = await post.render();
 const base = import.meta.env.BASE_URL.endsWith('/') ? import.meta.env.BASE_URL : `${import.meta.env.BASE_URL}/`;
 ---
 
-<Layout title={post.data.title}>
+<Layout 
+	title={post.data.title}
+	description={post.data.description}
+	image={post.data.cover?.src}
+	articleDate={post.data.pubDate.toISOString()}
+>
 	<div class="mb-8 border-b border-tui-border pb-8">
 		<a href={`${base}blog`} class="text-tui-dim hover:text-tui-accent mb-4 block">&larr; cd ..</a>
 		<h1 class="text-3xl font-bold text-tui-accent mb-2">{post.data.title}</h1>
