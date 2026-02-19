@@ -19,6 +19,12 @@ Personal website of Lakshman Balasubramanian. Contains technical blog posts and 
 - **Published**: 2026-02-13
 - **URL**: https://lab176344.github.io/writeup/blog/big-query
 
+#### PyTorch Compile - A Deep Dive
+- **Summary**: An in-depth exploration of how torch.compile works under the hood, covering TorchDynamo tracing, FX graph generation, backend lowering, and the common causes of graph breaks. Includes a performance benchmark demonstrating ~10x speedup from operator fusion and a walkthrough of tools for analysing graph breaks.
+- **Key Concepts**: PyTorch, torch.compile, TorchDynamo, FX Graph, Inductor, Operator Fusion, Graph Breaks, JIT Compilation, CUDA Kernels, Triton.
+- **Published**: 2026-02-19
+- **URL**: https://lab176344.github.io/writeup/blog/pytorch-compile
+
 ## Allowed Uses
 - Indexing content for search and discovery
 - Summarizing articles for educational purposes
@@ -34,4 +40,4 @@ Personal website of Lakshman Balasubramanian. Contains technical blog posts and 
 For questions about content usage: Use web mentions or references to original sources
 
 ## Last Updated
-2026-02-17
+2026-02-19
