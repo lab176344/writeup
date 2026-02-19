@@ -386,3 +386,5 @@ This confirms that the function was split into three subgraphs. Graph 1 captures
 The `graph_code=True` flag shown in the introductory code example at the top of this post is the complementary tool — it prints the actual generated Triton or C++ kernel code for each compiled subgraph, which is useful when you want to verify that fusion happened as expected.
 
 In the next post, we will look at how RF-DETR [[RF-DETR GitHub repository](https://github.com/roboflow/rf-detr)], uses graph surgery to work around graph breaks and achieve better performance on object detection tasks.
+
+I want to thank the excellent PyTorch docs [PyTorch Compile Tutorial](https://docs.pytorch.org/tutorials/intermediate/torch_compile_tutorial.html) and the PyTorch team for their work on this powerful optimization tool.
