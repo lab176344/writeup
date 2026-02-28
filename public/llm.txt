@@ -25,6 +25,12 @@ Personal website of Lakshman Balasubramanian. Contains technical blog posts and 
 - **Published**: 2026-02-19
 - **URL**: https://lab176344.github.io/writeup/blog/pytorch-compile
 
+#### Compiler Friendly RF-DETR: Patching Graph Breaks for torch.compile and TensorRT
+- **Summary**: Analyzing performance bottlenecks, identifying graph breaks, and patching them to unlock the full potential of torch.compile and TensorRT. Compares RF-DETR and YOLOv8 optimization paths including CUDA graphs, JIT tracing, and mixed precision.
+- **Key Concepts**: PyTorch, Object Detection, Optimization, TensorRT, torch.compile, TorchDynamo, Graph Breaks, CUDA Graphs, cuDNN, Monkey Patching.
+- **Published**: 2026-02-28
+- **URL**: https://lab176344.github.io/writeup/blog/rf-detr-optimization
+
 ## Allowed Uses
 - Indexing content for search and discovery
 - Summarizing articles for educational purposes
@@ -40,4 +46,4 @@ Personal website of Lakshman Balasubramanian. Contains technical blog posts and 
 For questions about content usage: Use web mentions or references to original sources
 
 ## Last Updated
-2026-02-19
+2026-02-28
