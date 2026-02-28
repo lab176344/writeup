@@ -1,8 +1,9 @@
 ---
 title: "Compiler Friendly RF-DETR: Patching Graph Breaks for torch.compile and TensorRT"
-description: "Analyzing performance bottlenecks, identifying graph breaks, and patching them to unlock the full potential of torch.compile and TensorRT."
+description: "Analysing performance bottlenecks, identifying graph breaks, and patching them to unlock the full potential of torch.compile and TensorRT."
 pubDate: "2026-02-28"
-tags: ["pytorch", "object-detection", "optimization", "tensorrt", "torch-compile"]
+tags:
+  ["pytorch", "object-detection", "optimization", "tensorrt", "torch-compile"]
 ---
 
 As discussed in the [previous post](https://lab176344.github.io/writeup/blog/pytorch-compile), `torch.compile` can deliver significant speedups for PyTorch models, but it requires the model to be free of _graph breaks_. A graph break can add overhead by forcing the compiler to fall back to eager execution and increase the latency of the forward pass. In this post, we will discuss how to take a model we did not write in this case, RF-DETR from Roboflow and understand performance bottlenecks, identify graph breaks, and patch them to unlock the full potential of `torch.compile` and TensorRT.
@@ -79,10 +80,10 @@ The figure shows that the top kernel is `bn_fw_inf_1C11_kernel_NCHW`, batch norm
 | Category         | RF-DETR Nano | YOLOv8-Small |
 | ---------------- | ------------ | ------------ |
 | Linear / GEMM    | 43.8%        | 36.5%        |
-| Self-attention   | 22.8%        |,            |
+| Self-attention   | 22.8%        | ,            |
 | Elementwise      | 20.4%        | 10.8%        |
-| Layer norm       | 6.5%         |,            |
-| Batch norm       |,            | 14.9%        |
+| Layer norm       | 6.5%         | ,            |
+| Batch norm       | ,            | 14.9%        |
 | Layout transpose | 1.1%         | 22.9%        |
 | Cat / concat     | 1.8%         | 5.9%         |
 
@@ -320,9 +321,9 @@ As shown in the figures below, mAP is unchanged across all optimization paths (0
 
 Based on the empirical results, the optimal optimisation strategy depends on your deployment target and batch size:
 
-* **For RF-DETR Nano:** **TensorRT** is the absolute fastest, achieving 1.53ms (BS1) and a massive 1442 img/s (BS16). If you must stay within a pure PyTorch environment for BS1, **`amp_bf16` + `reduce-overhead`** (2.04ms) is the best choice, effectively neutralizing the CPU dispatch bottleneck.
-* **For YOLOv8-Small:** **TensorRT** remains the top performer at 1.40ms (BS1) and 1489 img/s (BS16). For native PyTorch real-time use (BS1), **`amp_bf16` + `reduce-overhead`** (1.59ms) provides the lowest latency.
-* **High Throughput vs. Low Latency:** For production workloads at high batch sizes (BS16), TensorRT's fused engines are unmatched. For real-time applications (BS1), `torch.compile` with CUDA Graphs (reduce-overhead) provides a compelling alternative that is nearly as fast as TensorRT but significantly easier to integrate into existing Python pipelines.
+- **For RF-DETR Nano:** **TensorRT** is the absolute fastest, achieving 1.53ms (BS1) and a massive 1442 img/s (BS16). If you must stay within a pure PyTorch environment for BS1, **`amp_bf16` + `reduce-overhead`** (2.04ms) is the best choice, effectively neutralizing the CPU dispatch bottleneck.
+- **For YOLOv8-Small:** **TensorRT** remains the top performer at 1.40ms (BS1) and 1489 img/s (BS16). For native PyTorch real-time use (BS1), **`amp_bf16` + `reduce-overhead`** (1.59ms) provides the lowest latency.
+- **High Throughput vs. Low Latency:** For production workloads at high batch sizes (BS16), TensorRT's fused engines are unmatched. For real-time applications (BS1), `torch.compile` with CUDA Graphs (reduce-overhead) provides a compelling alternative that is nearly as fast as TensorRT but significantly easier to integrate into existing Python pipelines.
 
 The patches are pure monkey-patches at the module level, no changes to the RF-DETR source, no subclassing, no `MethodType` wrapping. They survive across `torch.compile` recompilations and ONNX export because they operate on the Python callables before any tracing begins.
 
