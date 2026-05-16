@@ -243,7 +243,7 @@ def backward(self):
 
 `build_topo` does a DFS from the loss node, appending nodes in post-order (children before parents). Reversing that gives topological order from root to leaves. The chain rule: `child.grad += local_grad * v.grad` accumulates the upstream gradient (from `v`) scaled by the local gradient of this edge.
 
-The `+=` is important. A `Value` node can be a child of multiple parent nodes. For example, one activation can feed the query, key, value, and residual branches, and one layer weight is reused for every token passed through that layer. Each parent contributes independently to the gradient, so those contributions accumulate.
+The `+=` is important. A `Value` node can be a child of multiple parent nodes. E.g., one activation can feed the query, key, value, and residual branches, and one layer weight is reused for every token passed through that layer. Each parent contributes independently to the gradient, so those contributions accumulate.
 
 For a forward pass over one MNIST image at these dimensions, the graph has on the order of tens of thousands of scalar `Value` nodes. The topological sort and reverse pass walk all of them. This is why the training loop is slow. There is no vectorization, no batching, no BLAS. Every multiply is a Python function call that allocates a new object.
 
@@ -301,12 +301,10 @@ The microVIT architecture follows the same pattern as ViT-B/16, just at much sma
 
 The structure is the same. The shapes are different. ViT-B/16 has 196 image patches plus a CLS token in 768-dim space with 12 heads of size 64 across 12 layers. It uses LayerNorm where this toy implementation uses RMSNorm-style normalization. The main pieces still line up: scaled dot-product attention, pre-norm residual blocks, GELU FFN with 4× expansion, residual adds, and a CLS token for classification.
 
-The main differences are:
+Few main differences are:
 
 **Scale and pretraining.** ViT at ImageNet scale requires either a massive dataset (JFT-300M in the original paper) or stronger training recipes such as distillation, augmentation, or DINO/MAE-style self-supervised pretraining. The inductive biases that CNNs get for free, local connectivity and weight sharing, have to be learned from data in a ViT.
 
 **Patch embedding as convolution.** Production ViTs implement the patch projection as a strided convolution with kernel size = stride = patch size, which handles the pixel gathering and linear projection in a single GPU-efficient op. Functionally equivalent to the explicit loop and matrix multiply in microVIT.
 
 **Absolute vs relative position.** The learned absolute positional embeddings here are the same style used in the original ViT. Many later variants explore 2D sinusoidal embeddings, relative position encodings, or RoPE-style approaches to improve transfer between different resolutions.
-
-**Flash Attention.** ViT-B/16 has 196 patch tokens plus the CLS token, so each attention head works over a `197×197` attention matrix. That is manageable in float32. At longer sequences, or with higher resolution inputs, the quadratic memory cost becomes the bottleneck. FlashAttention rewrites the attention computation to avoid materializing the full attention matrix, using tiled SRAM operations to reduce HBM access. The math is the same; the implementation avoids the memory wall.

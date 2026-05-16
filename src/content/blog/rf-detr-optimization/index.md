@@ -164,7 +164,7 @@ def patch_deformable_attention(spatial_shapes: list):
 
 ### Detecting spatial shapes at runtime
 
-Both patches need `spatial_shapes`, the height and width of each feature level the model produces. RF-DETR exposes this indirectly through a `projector_scale` attribute (e.g. `["P4"]`), which maps to a stride (`P4 → stride 16`). Given the input resolution, the spatial size at that scale is `resolution // stride`:
+Both patches need `spatial_shapes`, the height and width of each feature level the model produces. RF-DETR exposes this indirectly through a `projector_scale` attribute (E.g., `["P4"]`), which maps to a stride (`P4 → stride 16`). Given the input resolution, the spatial size at that scale is `resolution // stride`:
 
 ```python
 scale_stride = {"P3": 8, "P4": 16, "P5": 32}

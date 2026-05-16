@@ -303,7 +303,7 @@ BigQuery uses two strategies for joins:
 | **High Slot Time** | Complex `REGEXP`, UDFs, or large cross-joins. | Simplify logic; use `SEARCH` for text; ensure join keys are efficient. |
 | **High Wait Time** | Slot contention or hitting project limits. | Switch to Capacity pricing (Reservations) or optimise query to use fewer slots. |
 | **High Bytes Shuffled** | Joining large tables on non-clustered columns. | Cluster both tables on the join keys; use nested/repeated fields to avoid joins. |
-| **Data Skew** | Join keys are unevenly distributed (e.g., many NULLs). | Filter out NULLs before joining; distribute frequently occurring keys using a "salting" technique. |
+| **Data Skew** | Join keys are unevenly distributed (E.g., many NULLs). | Filter out NULLs before joining; distribute frequently occurring keys using a "salting" technique. |
 | **Exploding Joins** | **Low Cardinality** on join keys (Many-to-Many). | Check join logic; ensure you aren't creating a Cartesian product inadvertently. |
 <!-- markdownlint-enable MD013 -->
 
