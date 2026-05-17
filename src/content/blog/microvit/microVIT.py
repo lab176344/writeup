@@ -4,6 +4,9 @@ import os
 import random
 import urllib.request
 
+# Autograd engine adapted from Andrej Karpathy's microGPT:
+# https://karpathy.github.io/2026/02/12/microgpt/
+
 n_embed = 16
 n_head = 4
 head_size = n_embed // n_head
